@@ -1,0 +1,30 @@
+import random
+
+environment = {
+    'A': random.choice(['Dirty', 'Clean']),
+    'B': random.choice(['Dirty', 'Clean'])
+}
+
+# Starting location of vacuum cleaner
+vacuum_location = random.choice(['A', 'B'])
+
+def vacuum_agent(location, env):
+    actions = []
+    if env[location] == 'Dirty':
+        actions.append(f"Location {location} is Dirty. Action: Suck.")
+        env[location] = 'Clean'
+    if location == 'A':
+        actions.append("Move Right to B.")
+        location = 'B'
+    else:
+        actions.append("Move Left to A.")
+        location = 'A'
+    return location, actions
+
+# Simulate the agent for a few steps
+print(f"Initial Environment: {environment}")
+for _ in range(4):
+    vacuum_location, performed_actions = vacuum_agent(vacuum_location, environment)
+    for action in performed_actions:
+        print(action)
+    print(f"Environment Now: {environment}")
